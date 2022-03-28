@@ -8,7 +8,7 @@ namespace BlackWitchEngine
 {
     public class CircleCollider2D
     {
-        Vector2D Center {get;}
+        public Vector2D Center { get; set; }
         public float Radius {get;}
         public CircleCollider2D(Vector2D center, float r)
         {

@@ -11,7 +11,7 @@ namespace NaturalSelectionUI
 {
     public partial class FrmMain : Form, IGameCycleView
     {
-        private int _scale = 1;
+        private int _scale = 2;
         private (float X, float Y) _fieldSize;
 
 
@@ -27,7 +27,7 @@ namespace NaturalSelectionUI
         private void BtnTest_Click(object sender, EventArgs e)
         {
             PbxField.Paint += PaintField;            
-            CycleInitialized.Invoke(this, new InitializedCycleEventArgs() { FieldSize = (600, 450), SheepsNum = 50 });
+            CycleInitialized.Invoke(this, new InitializedCycleEventArgs() { FieldSize = (600, 450), SheepsNum = 100 });
 
             PbxField.Refresh();
         }
