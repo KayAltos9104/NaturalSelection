@@ -24,7 +24,7 @@ namespace NaturalSelectionLogic
         }
         public void ViewUpdateCycle (object sender, GameCycleEventArgs e)
         {
-            _gameCycleView.RenderObjects(e.animals);
+            _gameCycleView.RenderObjects(e.Animals, e.FieldSize);
         }
         public void ModelInitializeCycle(object sender, InitializedCycleEventArgs e)
         {

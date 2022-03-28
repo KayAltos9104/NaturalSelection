@@ -4,8 +4,7 @@ using BlackWitchEngine;
 namespace NaturalSelectionLogic
 {
     public class Animal : TemplateObject, IPhysical
-    {
-        Random rnd = new Random();
+    {        
         public float Speed { get; protected set; }         
         public float Health { get; protected set; }
         public float Attack { get; protected set; }
@@ -16,7 +15,7 @@ namespace NaturalSelectionLogic
         //public byte CurrentAge { get; protected set; }
         //public byte LiveAge { get; protected set; }
         //public float Hunger { get; protected set; }
-        public Animal (Vector2D pos):this(1,100,0,10,pos)
+        public Animal (Vector2D pos):this(2,100,0,10,pos)
         {           
           
         }
