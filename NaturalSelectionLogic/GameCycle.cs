@@ -1,4 +1,5 @@
 ﻿using BlackWitchEngine;
+using BlackWitchEngine.PhysL;
 using System;
 using System.Collections.Generic;
 
@@ -39,10 +40,12 @@ namespace NaturalSelectionLogic
         }     
         public void Update()
         {
+            
             foreach (var o in animals)
             {
                 Vector2D dir = new Vector2D((float)(2 * rnd.NextDouble() - 1), (float)(2 * rnd.NextDouble() - 1));
-                var a = (Animal)o;               
+                var a = (Animal)o;  
+                
                 while ((a.Pos.X + a.Speed * dir.X) < a.CircleCollider.Radius ||
                     (a.Pos.X + a.Speed * dir.X) > FieldSize.X-a.CircleCollider.Radius)
                 {
@@ -53,6 +56,7 @@ namespace NaturalSelectionLogic
                 {
                     dir = new Vector2D(dir.X, -dir.Y*2);
                 }
+
                 for (float m = a.Speed; m>=0;m--)
                 {
                     a.Move(dir);
@@ -61,20 +65,7 @@ namespace NaturalSelectionLogic
                         if (o == neighbor)
                             continue;
                         var n = (Animal)neighbor;
-                        if (Vector2D.CalculateDistance(a.Pos, n.Pos) < 2 * a.CircleCollider.Radius)
-                        {
-                            var bounce = Vector2D.Reverse(dir);
-                            bool col = CircleCollider2D.IsIntersected(a.CircleCollider, n.CircleCollider);
-                            while (CircleCollider2D.IsIntersected(a.CircleCollider, n.CircleCollider))
-                            {
-                                a.Move(bounce);                                
-                            }
-                            if (col)
-                            {
-                                m = 0;
-                                //break;
-                            }
-                        }
+                        PhysL.ObsctacleCollide(dir, a, n);                      
                     }
                 }                              
                 a.Update();

@@ -27,7 +27,7 @@ namespace NaturalSelectionUI
         private void BtnTest_Click(object sender, EventArgs e)
         {
             PbxField.Paint += PaintField;            
-            CycleInitialized.Invoke(this, new InitializedCycleEventArgs() { FieldSize = (600, 450), SheepsNum = 100 });
+            CycleInitialized.Invoke(this, new InitializedCycleEventArgs() { FieldSize = (600, 450), SheepsNum = 50 });
 
             PbxField.Refresh();
         }
@@ -35,7 +35,7 @@ namespace NaturalSelectionUI
         {
             Graphics g = e.Graphics;
             SolidBrush b = new SolidBrush(Color.White);
-            Pen p = new Pen(Color.Black, 2.0f);
+            Pen p = new Pen(Color.Black, 1.0f);
             //Инициализация пустого белого поля
             g.FillRectangle(b, e.ClipRectangle);
             //Отрисовка границ

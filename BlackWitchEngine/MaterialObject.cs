@@ -2,14 +2,13 @@
 
 namespace BlackWitchEngine
 {
-    public abstract class TemplateObject:IObject
+    public abstract class MaterialObject:IObject, IPhysical
     {
         public virtual Vector2D Pos { get; set; }
-        //public event EventHandler<ObjectEventArgs> ObjectUpdated;
+        public virtual CircleCollider2D CircleCollider { get ; set;}        
         public event EventHandler ObjectUpdated = delegate { };
         public virtual void Update()
         {
-            //ObjectUpdated(this, new ObjectEventArgs());
             ObjectUpdated(this, new EventArgs ());
         }
     }

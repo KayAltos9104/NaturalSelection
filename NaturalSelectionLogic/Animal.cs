@@ -3,19 +3,19 @@ using BlackWitchEngine;
 
 namespace NaturalSelectionLogic
 {
-    public class Animal : TemplateObject, IPhysical
+    public class Animal : MaterialObject
     {        
         public float Speed { get; protected set; }         
         public float Health { get; protected set; }
         public float Attack { get; protected set; }
-        public CircleCollider2D CircleCollider { get; set; }
+        //public CircleCollider2D CircleCollider { get; set; }
 
         //public float Armor { get; protected set; }
         //public float ChildrenCount { get; protected set; }
         //public byte CurrentAge { get; protected set; }
         //public byte LiveAge { get; protected set; }
         //public float Hunger { get; protected set; }
-        public Animal (Vector2D pos):this(10,100,0,10,pos)
+        public Animal (Vector2D pos):this(10,100,0,5,pos)
         {           
           
         }
