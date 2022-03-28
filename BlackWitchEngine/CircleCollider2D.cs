@@ -18,7 +18,6 @@ namespace BlackWitchEngine
         public static bool IsIntersected(CircleCollider2D c1, CircleCollider2D c2)
         {
             return Vector2D.CalculateDistance(c1.Center, c2.Center) < c1.Radius + c2.Radius;
-        }
-        
+        }        
     }
 }

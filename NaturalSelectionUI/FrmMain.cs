@@ -49,9 +49,9 @@ namespace NaturalSelectionUI
                 Animal a = (Animal)o;
                 b.Color = Color.Red;
                 g.FillEllipse(b, (a.Pos.X - a.CircleCollider.Radius) * _scale, (a.Pos.Y - a.CircleCollider.Radius) * _scale,
-                    a.CircleCollider.Radius * _scale, a.CircleCollider.Radius * _scale);
+                    2*a.CircleCollider.Radius * _scale, 2*a.CircleCollider.Radius * _scale);
                 g.DrawEllipse(p, (a.Pos.X - a.CircleCollider.Radius) * _scale, (a.Pos.Y - a.CircleCollider.Radius) * _scale,
-                    a.CircleCollider.Radius * _scale, a.CircleCollider.Radius * _scale);
+                    2*a.CircleCollider.Radius * _scale,2*a.CircleCollider.Radius * _scale);
             }
         }
         public new void Show()
@@ -63,7 +63,7 @@ namespace NaturalSelectionUI
             while (true)
             {
                 CycleLaunched.Invoke(this, new EventArgs());
-                //Thread.Sleep(300);
+                Thread.Sleep(100);
                 GC.Collect();
                 GC.WaitForPendingFinalizers();
             }

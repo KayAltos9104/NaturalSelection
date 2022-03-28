@@ -42,36 +42,41 @@ namespace NaturalSelectionLogic
             foreach (var o in animals)
             {
                 Vector2D dir = new Vector2D((float)(2 * rnd.NextDouble() - 1), (float)(2 * rnd.NextDouble() - 1));
-                var a = (Animal)o;
-                //while ((a.Pos.X+a.Speed * dir.X) < 0 || (a.Pos.Y+a.Speed * dir.Y) < 0 || (a.Pos.X + a.Speed * dir.X) > FieldSize.X 
-                //    || (a.Pos.Y + a.Speed * dir.Y) > FieldSize.Y)
-                //{
-                //    dir = new Vector2D((float)(2 * rnd.NextDouble() - 1), (float)(2 * rnd.NextDouble() - 1));
-                //}
-                while ((a.Pos.X + a.Speed * dir.X) < 20 ||(a.Pos.X + a.Speed * dir.X) > FieldSize.X-20)
+                var a = (Animal)o;               
+                while ((a.Pos.X + a.Speed * dir.X) < a.CircleCollider.Radius ||
+                    (a.Pos.X + a.Speed * dir.X) > FieldSize.X-a.CircleCollider.Radius)
                 {
                     dir = new Vector2D(-dir.X * 2, dir.Y);
                 }
-                while ((a.Pos.Y + a.Speed * dir.Y) < 20 || (a.Pos.Y + a.Speed * dir.Y) > FieldSize.Y-20)
+                while ((a.Pos.Y + a.Speed * dir.Y) < a.CircleCollider.Radius || 
+                    (a.Pos.Y + a.Speed * dir.Y) > FieldSize.Y- a.CircleCollider.Radius)
                 {
                     dir = new Vector2D(dir.X, -dir.Y*2);
                 }
-                a.Move(dir);
-                foreach (var neighbor in animals)
+                for (float m = a.Speed; m>=0;m--)
                 {
-                    if (o == neighbor)
-                        continue;
-                    var n = (Animal)neighbor;
-                    if (Vector2D.CalculateDistance(a.Pos,n.Pos)<2*a.CircleCollider.Radius)
+                    a.Move(dir);
+                    foreach (var neighbor in animals)
                     {
-                        var bounce = Vector2D.Reverse(dir);
-                        while (CircleCollider2D.IsIntersected(a.CircleCollider, n.CircleCollider))
+                        if (o == neighbor)
+                            continue;
+                        var n = (Animal)neighbor;
+                        if (Vector2D.CalculateDistance(a.Pos, n.Pos) < 2 * a.CircleCollider.Radius)
                         {
-                            //a.Move(Vector2D.MultipleModule(1, bounce));
-                            a.Move(bounce);
+                            var bounce = Vector2D.Reverse(dir);
+                            bool col = CircleCollider2D.IsIntersected(a.CircleCollider, n.CircleCollider);
+                            while (CircleCollider2D.IsIntersected(a.CircleCollider, n.CircleCollider))
+                            {
+                                a.Move(bounce);                                
+                            }
+                            if (col)
+                            {
+                                m = 0;
+                                //break;
+                            }
                         }
                     }
-                }                
+                }                              
                 a.Update();
             }
             CycleUpdated(this, new GameCycleEventArgs(animals, FieldSize));

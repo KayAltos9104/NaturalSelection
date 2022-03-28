@@ -15,7 +15,7 @@ namespace NaturalSelectionLogic
         //public byte CurrentAge { get; protected set; }
         //public byte LiveAge { get; protected set; }
         //public float Hunger { get; protected set; }
-        public Animal (Vector2D pos):this(5,100,0,10,pos)
+        public Animal (Vector2D pos):this(10,100,0,10,pos)
         {           
           
         }
@@ -28,18 +28,15 @@ namespace NaturalSelectionLogic
             CircleCollider = new CircleCollider2D(Pos, size);
         }
         public override void Update()
-        {            
-            //Vector2D dir = new Vector2D((float)(2 * rnd.NextDouble() - 1), (float)(2 * rnd.NextDouble() - 1));
-            //Move(dir);
+        { 
             base.Update();//Включает событие апдейта
         }
         public void Move (Vector2D dir)//Нужен нормализованный вектор на вход
-        {
-            //Pos += Vector2D.MultipleModule(Speed, dir);
-            for (float m = Speed; m >0;m--)
-            {
+        {            
+            //for (float m = Speed; m >0;m--)
+            //{
                 Pos += dir;
-            }
+            //}
             CircleCollider.Center = Pos;
         }
     }
