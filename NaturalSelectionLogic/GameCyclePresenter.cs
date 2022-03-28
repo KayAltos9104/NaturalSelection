@@ -11,7 +11,6 @@ namespace NaturalSelectionLogic
     {
         private GameCycle _gameCycleModel = null;
         private IGameCycleView _gameCycleView = null;
-
         public GameCyclePresenter(GameCycle model, IGameCycleView view)
         {
             _gameCycleModel = model;
@@ -20,7 +19,6 @@ namespace NaturalSelectionLogic
             _gameCycleView = view;
             _gameCycleView.CycleInitialized += ModelInitializeCycle;
             _gameCycleView.CycleLaunched += ModelLaunchCycle;
-
         }
         public void ViewUpdateCycle (object sender, GameCycleEventArgs e)
         {

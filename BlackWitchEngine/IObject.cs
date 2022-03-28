@@ -5,13 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace BlackWitchEngine
-{
-    public class ObjectEventArgs:EventArgs
-    {
-
-    }
+{    
     public interface IObject
     {
+        Vector2D Pos { get; set; }
         void Update();
         event EventHandler ObjectUpdated;
     }

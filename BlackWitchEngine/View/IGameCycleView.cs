@@ -15,7 +15,6 @@ namespace BlackWitchEngine
     {        
         event EventHandler<InitializedCycleEventArgs> CycleInitialized;
         event EventHandler CycleLaunched;
-
         public void Show();
         public void RenderObjects(List<IObject> objects, (float X, float Y) FieldSize);
     }

@@ -66,7 +66,7 @@ namespace NaturalSelectionUI
             this.BtnLaunchCycle.TabIndex = 2;
             this.BtnLaunchCycle.Text = "Один цикл";
             this.BtnLaunchCycle.UseVisualStyleBackColor = true;
-            this.BtnLaunchCycle.Click += new System.EventHandler(this.BtnLaunchCycle_Click);
+            this.BtnLaunchCycle.Click += new System.EventHandler(this.BtnLaunchCycle_ClickAsync);
             // 
             // FrmMain
             // 
