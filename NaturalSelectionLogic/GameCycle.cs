@@ -98,14 +98,30 @@ namespace NaturalSelectionLogic
                         var n = (Animal)neighbor;
                         if (PhysL.ObsctacleCollide(dir, a, n))
                         {                           
-                            if (a.GetType() == n.GetType()&&a.CurrentAge>10&&n.CurrentAge>10)
+                            if (a.GetType() == n.GetType())
                             {
-                                for (int i=0; i <2;i++)
+                                if (a is Sheep&& a.CurrentAge > 10 && n.CurrentAge > 10)
                                 {
-                                    a.Born();
+                                    for (int i = 0; i < 2; i++)
+                                    {
+                                        a.Born();
+                                    }
+                                    a.BirthCooldown = 5;
+                                    n.BirthCooldown = 5;
+                                }
+                                else if (a is Wolf&& a.CurrentAge > 10 && n.CurrentAge > 10)
+                                {
+                                    for (int i = 0; i < 2; i++)
+                                    {
+                                        a.Born();
+                                    }
+                                    a.BirthCooldown = 10;
+                                    n.BirthCooldown = 10;
                                 }                                
-                                a.BirthCooldown = 5;
-                                n.BirthCooldown = 5;
+                            }
+                            else if (a is Wolf && a.GetType()!=n.GetType())
+                            {
+                                animalsToDel.Add(n);
                             }
                         }                       
                     }

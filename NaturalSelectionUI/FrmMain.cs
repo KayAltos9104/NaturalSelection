@@ -14,6 +14,7 @@ namespace NaturalSelectionUI
         private int _scale = 3;
         private (float X, float Y) _fieldSize;
         Image lamb = Image.FromFile("lamb3.png");
+        Image wolf = Image.FromFile("wolf.png");
         FrmGraphics statisticsGraphs;
         List<IObject> animals = new List<IObject>();
         Dictionary<string, List<int>> statPoints = new Dictionary<string, List<int>>();
@@ -67,7 +68,7 @@ namespace NaturalSelectionUI
         private void BtnInitialize_Click(object sender, EventArgs e)
         {
             PbxField.Paint += PaintField;
-            CycleInitialized.Invoke(this, new InitializedCycleEventArgs() { FieldSize = (500, 300), SheepsNum = 20, WolfsNum = 20 });
+            CycleInitialized.Invoke(this, new InitializedCycleEventArgs() { FieldSize = (500, 300), SheepsNum = 40, WolfsNum = 20 });
             statisticsGraphs.Show();
             statPoints.Clear();
             PbxField.Refresh();
@@ -82,6 +83,8 @@ namespace NaturalSelectionUI
                 shift.X = 0;
             if (shift.Y < 0)
                 shift.Y = 0;
+
+
             //Инициализация пустого белого поля
             g.FillRectangle(b, e.ClipRectangle);
             b.Color = Color.LightGreen;
@@ -91,18 +94,27 @@ namespace NaturalSelectionUI
             //Отрисовка зверей          
             foreach (var o in animals)
             {
+                Image sprite=null;
                 Animal a = (Animal)o;
                 if (a is Sheep)
+                {
                     b.Color = Color.Blue;
+                    sprite = lamb;
+                }                    
                 else if (a is Wolf)
+                {
                     b.Color = Color.Red;
+                    sprite = wolf;
+                }
+                   
 
                 g.FillEllipse(b, (a.Pos.X - a.CircleCollider.Radius) * _scale + shift.X, (a.Pos.Y - a.CircleCollider.Radius) * _scale + shift.Y,
                     2 * a.CircleCollider.Radius * _scale, 2 * a.CircleCollider.Radius * _scale);
                 g.DrawEllipse(p, (a.Pos.X - a.CircleCollider.Radius) * _scale + shift.X, (a.Pos.Y - a.CircleCollider.Radius) * _scale + shift.Y,
                     2 * a.CircleCollider.Radius * _scale, 2 * a.CircleCollider.Radius * _scale);
-                g.DrawImage(lamb, (a.Pos.X - a.CircleCollider.Radius) * _scale + shift.X, (a.Pos.Y - a.CircleCollider.Radius) * _scale + shift.Y,
+                g.DrawImage(sprite, (a.Pos.X - a.CircleCollider.Radius) * _scale + shift.X, (a.Pos.Y - a.CircleCollider.Radius) * _scale + shift.Y,
                     2 * a.CircleCollider.Radius * _scale, 2 * a.CircleCollider.Radius * _scale);
+
             }
         }
         public new void Show()

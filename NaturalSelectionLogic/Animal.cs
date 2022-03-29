@@ -34,7 +34,7 @@ namespace NaturalSelectionLogic
             Health = h;
             Attack = a;
             Pos = pos;
-            LiveAge = 30;
+            LiveAge = 200;
             CurrentAge = 1;
             CircleCollider = new CircleCollider2D(Pos, size);
             IsLive = true;
