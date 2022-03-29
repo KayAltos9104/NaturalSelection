@@ -12,9 +12,9 @@ namespace NaturalSelectionUI
 {
     public partial class FrmMain : Form, IGameCycleView
     {
-        private int _scale = 2;
+        private int _scale = 3;
         private (float X, float Y) _fieldSize;
-
+        Image lamb = Image.FromFile("lamb3.png");
 
         List<IObject> animals = new List<IObject>();
 
@@ -28,7 +28,7 @@ namespace NaturalSelectionUI
         private void BtnTest_Click(object sender, EventArgs e)
         {
             PbxField.Paint += PaintField;
-            CycleInitialized.Invoke(this, new InitializedCycleEventArgs() { FieldSize = (500, 400), SheepsNum = 50 });
+            CycleInitialized.Invoke(this, new InitializedCycleEventArgs() { FieldSize = (500, 300), SheepsNum = 20 });
             PbxField.Refresh();
         }
         private void PaintField(object sender, PaintEventArgs e)
@@ -51,10 +51,12 @@ namespace NaturalSelectionUI
             foreach (var o in animals)
             {
                 Animal a = (Animal)o;
-                b.Color = Color.Red;
+                b.Color = Color.Blue;
                 g.FillEllipse(b, (a.Pos.X - a.CircleCollider.Radius) * _scale + shift.X, (a.Pos.Y - a.CircleCollider.Radius) * _scale + shift.Y,
                     2 * a.CircleCollider.Radius * _scale, 2 * a.CircleCollider.Radius * _scale);
                 g.DrawEllipse(p, (a.Pos.X - a.CircleCollider.Radius) * _scale + shift.X, (a.Pos.Y - a.CircleCollider.Radius) * _scale + shift.Y,
+                    2 * a.CircleCollider.Radius * _scale, 2 * a.CircleCollider.Radius * _scale);
+                g.DrawImage(lamb, (a.Pos.X - a.CircleCollider.Radius) * _scale + shift.X, (a.Pos.Y - a.CircleCollider.Radius) * _scale + shift.Y,
                     2 * a.CircleCollider.Radius * _scale, 2 * a.CircleCollider.Radius * _scale);
             }
         }

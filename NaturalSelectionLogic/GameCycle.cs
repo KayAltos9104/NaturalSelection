@@ -85,8 +85,8 @@ namespace NaturalSelectionLogic
                                 {
                                     a.Born();
                                 }                                
-                                a.BirthCooldown = 10;
-                                n.BirthCooldown = 10;
+                                a.BirthCooldown = 5;
+                                n.BirthCooldown = 5;
                             }
                         }                       
                     }

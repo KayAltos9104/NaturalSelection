@@ -24,7 +24,7 @@ namespace NaturalSelectionLogic
         public virtual event EventHandler Died = delegate { };
         public abstract event EventHandler<AnimalBornedArgs> GaveBirth;
         public byte BirthCooldown { get; set; }
-        public Animal(Vector2D pos) : this(10, 100, 0, 5, pos)
+        public Animal(Vector2D pos) : this(10, 100, 0, 7, pos)
         {
 
         }
