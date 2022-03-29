@@ -11,7 +11,9 @@ namespace NaturalSelectionUI
 {
     public partial class FrmMain : Form, IGameCycleView
     {
-        private int _scale = 3;
+        private int _scale = 1;
+        private int _scaleChangeCooldown = 0;
+
         private (float X, float Y) _fieldSize;
         Image lamb = Image.FromFile("lamb3.png");
         Image wolf = Image.FromFile("wolf.png");
@@ -90,24 +92,32 @@ namespace NaturalSelectionUI
             g.FillRectangle(b, shift.X, shift.Y, (int)_fieldSize.X * _scale, (int)_fieldSize.Y * _scale);
             //Отрисовка границ
             g.DrawRectangle(p, shift.X, shift.Y, (int)_fieldSize.X * _scale, (int)_fieldSize.Y * _scale);
-            //Отрисовка зверей          
-            foreach (var o in animals)
+            //Отрисовка зверей
+            try
             {
-                Image sprite=null;
-                Animal a = (Animal)o;
-                if (a is Sheep)
+                foreach (var o in animals)
                 {
-                    b.Color = Color.Blue;
-                    sprite = lamb;
-                }                    
-                else if (a is Wolf)
-                {
-                    b.Color = Color.Red;
-                    sprite = wolf;
-                }   
-                DrawUnit(g, sprite, b, p, (a.Pos.X - a.CircleCollider.Radius) * _scale + shift.X, (a.Pos.Y - a.CircleCollider.Radius) * _scale + shift.Y,
-                    2 * a.CircleCollider.Radius * _scale, 2 * a.CircleCollider.Radius * _scale);
+                    Image sprite = null;
+                    Animal a = (Animal)o;
+                    if (a is Sheep)
+                    {
+                        b.Color = Color.Blue;
+                        sprite = lamb;
+                    }
+                    else if (a is Wolf)
+                    {
+                        b.Color = Color.Red;
+                        sprite = wolf;
+                    }
+                    DrawUnit(g, sprite, b, p, (a.Pos.X - a.CircleCollider.Radius) * _scale + shift.X, (a.Pos.Y - a.CircleCollider.Radius) * _scale + shift.Y,
+                        2 * a.CircleCollider.Radius * _scale, 2 * a.CircleCollider.Radius * _scale);
+                }
             }
+            catch
+            {
+
+            }
+            
         }
         public void DrawUnit (Graphics g, Image sprite, SolidBrush b, Pen p, float X, float Y, float sizeX, float sizeY)
         {
@@ -126,6 +136,8 @@ namespace NaturalSelectionUI
         public void RenderObjects(List<IObject> objects, (float X, float Y) FieldSize)
         {
             this.Invoke(UpdatePictureBox, objects, FieldSize);
+            if (_scaleChangeCooldown > 0)
+                _scaleChangeCooldown--;
         }
         public void ShowStatistics(Dictionary<string, int> AnimalsNumber)
         {
@@ -134,6 +146,25 @@ namespace NaturalSelectionUI
         public void ShowError(string errorMessage)
         {
             MessageBox.Show(errorMessage, "Ошибка!");
+        }
+        //TODO: Почему-то, при прокрутке колеса он иногда вылетает с изменением списка animals O_O
+        public void BtnWheel (object sender, MouseEventArgs e)
+        {            
+            if (_scaleChangeCooldown==0)
+            {
+                _scaleChangeCooldown = 1;
+                if (e.Delta > 0 && _scale < 10)
+                {
+                    _scale++;
+                    PbxField.Refresh();
+                }
+                else if (e.Delta < 0 && _scale > 1)
+                {
+                    _scale--;
+                    PbxField.Refresh();
+                }
+            }
+            
         }
 
     }

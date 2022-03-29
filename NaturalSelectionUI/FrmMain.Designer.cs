@@ -58,6 +58,7 @@ namespace NaturalSelectionUI
             this.PbxField.Size = new System.Drawing.Size(751, 629);
             this.PbxField.TabIndex = 1;
             this.PbxField.TabStop = false;
+            this.PbxField.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.BtnWheel);
             // 
             // BtnLaunchCycle
             // 
