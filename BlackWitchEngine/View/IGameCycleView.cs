@@ -17,5 +17,6 @@ namespace BlackWitchEngine
         void ShowError(string errorMessage);        
         
         void RenderObjects(List<IObject> objects, (float X, float Y) FieldSize);
+        void ShowStatistics(Dictionary<string, int> AnimalsNumber);
     }
 }

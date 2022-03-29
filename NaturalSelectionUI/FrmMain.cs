@@ -22,18 +22,31 @@ namespace NaturalSelectionUI
         public event EventHandler CycleLaunched = delegate { };
 
         //public delegate void Render(List<IObject> objects, (float X, float Y) FieldSize);
-        public delegate void UpdateControls(List<IObject> objects, (float X, float Y) FieldSize);
-        public UpdateControls UpdatePictureBox;
+        public delegate void UpdateVisualization(List<IObject> objects, (float X, float Y) FieldSize);
+        public UpdateVisualization UpdatePictureBox;
+        public delegate void UpdateText(Dictionary<string, int> statistics);
+        public UpdateText UpdateStatistics;
 
         public FrmMain()
         {
-            InitializeComponent();
-            //UpdatePictureBox = RenderObjects;
+            InitializeComponent();           
             UpdatePictureBox = (objects, FieldSize) =>
             {
                 animals = objects;
                 _fieldSize = FieldSize;
                 PbxField.Refresh();
+            };
+            UpdateStatistics = (animalsNumber) =>
+            {
+                LbxStatistics.Items.Clear();
+                string s = "Кол-во животных: \n";
+                LbxStatistics.Items.Add(s);
+                foreach (var a in animalsNumber)
+                {
+                    s = String.Format("{0} : {1}", a.Key, a.Value);
+                    LbxStatistics.Items.Add(s);
+                }               
+                LbxStatistics.Refresh();
             };
         }
         private void BtnTest_Click(object sender, EventArgs e)
@@ -76,26 +89,22 @@ namespace NaturalSelectionUI
             Application.Run(this);
         }
         private void BtnLaunchCycle_Click(object sender, EventArgs e)
-        {
-            //await Task.Run(()=>
-            //{
-            CycleLaunched.Invoke(this, new EventArgs());
-            
-            //});
+        {            
+            CycleLaunched.Invoke(this, new EventArgs());  
         }
-        //public void RenderObjects(List<IObject> objects, (float X, float Y) FieldSize)
-        //{
-        //    animals = objects;
-        //    _fieldSize = FieldSize;
-        //    PbxField.Refresh();
-        //}
+       
         public void RenderObjects (List<IObject> objects, (float X, float Y) FieldSize)
         {
             this.Invoke(UpdatePictureBox, objects, FieldSize);
+        }
+        public void ShowStatistics(Dictionary<string, int> AnimalsNumber)
+        {
+            this.Invoke(UpdateStatistics, AnimalsNumber);           
         }
         public void ShowError(string errorMessage)
         {
             MessageBox.Show(errorMessage, "Ошибка!");
         }
+        
     }
 }

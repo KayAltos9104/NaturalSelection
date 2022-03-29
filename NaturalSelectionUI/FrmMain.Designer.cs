@@ -32,6 +32,7 @@ namespace NaturalSelectionUI
             this.BtnNewGame = new System.Windows.Forms.Button();
             this.PbxField = new System.Windows.Forms.PictureBox();
             this.BtnLaunchCycle = new System.Windows.Forms.Button();
+            this.LbxStatistics = new System.Windows.Forms.ListBox();
             ((System.ComponentModel.ISupportInitialize)(this.PbxField)).BeginInit();
             this.SuspendLayout();
             // 
@@ -39,7 +40,7 @@ namespace NaturalSelectionUI
             // 
             this.BtnNewGame.Location = new System.Drawing.Point(12, 12);
             this.BtnNewGame.Name = "BtnNewGame";
-            this.BtnNewGame.Size = new System.Drawing.Size(128, 55);
+            this.BtnNewGame.Size = new System.Drawing.Size(184, 55);
             this.BtnNewGame.TabIndex = 0;
             this.BtnNewGame.Text = "Новая игра";
             this.BtnNewGame.UseVisualStyleBackColor = true;
@@ -52,9 +53,9 @@ namespace NaturalSelectionUI
             | System.Windows.Forms.AnchorStyles.Right)));
             this.PbxField.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.PbxField.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.PbxField.Location = new System.Drawing.Point(146, 5);
+            this.PbxField.Location = new System.Drawing.Point(202, 5);
             this.PbxField.Name = "PbxField";
-            this.PbxField.Size = new System.Drawing.Size(632, 481);
+            this.PbxField.Size = new System.Drawing.Size(751, 629);
             this.PbxField.TabIndex = 1;
             this.PbxField.TabStop = false;
             // 
@@ -62,17 +63,27 @@ namespace NaturalSelectionUI
             // 
             this.BtnLaunchCycle.Location = new System.Drawing.Point(12, 73);
             this.BtnLaunchCycle.Name = "BtnLaunchCycle";
-            this.BtnLaunchCycle.Size = new System.Drawing.Size(128, 55);
+            this.BtnLaunchCycle.Size = new System.Drawing.Size(184, 55);
             this.BtnLaunchCycle.TabIndex = 2;
             this.BtnLaunchCycle.Text = "Запустить серию циклов";
             this.BtnLaunchCycle.UseVisualStyleBackColor = true;
             this.BtnLaunchCycle.Click += new System.EventHandler(this.BtnLaunchCycle_Click);
             // 
+            // LbxStatistics
+            // 
+            this.LbxStatistics.FormattingEnabled = true;
+            this.LbxStatistics.ItemHeight = 20;
+            this.LbxStatistics.Location = new System.Drawing.Point(12, 143);
+            this.LbxStatistics.Name = "LbxStatistics";
+            this.LbxStatistics.Size = new System.Drawing.Size(184, 204);
+            this.LbxStatistics.TabIndex = 3;
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(790, 498);
+            this.ClientSize = new System.Drawing.Size(965, 646);
+            this.Controls.Add(this.LbxStatistics);
             this.Controls.Add(this.BtnLaunchCycle);
             this.Controls.Add(this.PbxField);
             this.Controls.Add(this.BtnNewGame);
@@ -88,6 +99,7 @@ namespace NaturalSelectionUI
         private System.Windows.Forms.Button BtnNewGame;
         private System.Windows.Forms.PictureBox PbxField;
         private System.Windows.Forms.Button BtnLaunchCycle;
+        private System.Windows.Forms.ListBox LbxStatistics;
     }
 }
 

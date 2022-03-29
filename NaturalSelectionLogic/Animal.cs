@@ -21,7 +21,7 @@ namespace NaturalSelectionLogic
         public byte CurrentAge { get; protected set; }
         public byte LiveAge { get; protected set; }
         //public float Hunger { get; protected set; }
-        public virtual event EventHandler Died = delegate { };
+        public event EventHandler Died = delegate { };
         public abstract event EventHandler<AnimalBornedArgs> GaveBirth;
         public byte BirthCooldown { get; set; }
         public Animal(Vector2D pos) : this(10, 100, 0, 7, pos)

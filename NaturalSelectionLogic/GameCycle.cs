@@ -10,10 +10,12 @@ namespace NaturalSelectionLogic
     {
         public List<IObject> Animals { get; set; }
         public (float X, float Y) FieldSize { get; set; }
-        public GameCycleEventArgs(List<IObject> animals, (float, float) field)
+        public Dictionary<string, int> AnimalsNumber { get; set; }
+        public GameCycleEventArgs(List<IObject> animals, (float, float) field, Dictionary<string, int> count)
         {
             this.Animals = animals;
             this.FieldSize = field;
+            this.AnimalsNumber = count;
         }
     }
     public class GameCycle
@@ -26,6 +28,9 @@ namespace NaturalSelectionLogic
         public event EventHandler<GameCycleEventArgs> CycleUpdated = delegate { };
         public void Initizalize((float X, float Y) FieldSize, int SheepsNum)
         {
+            animals.Clear();
+            animalsToDel.Clear();
+            animalsToBorn.Clear();
             this.FieldSize = FieldSize;
             for (int i = 1; i <= SheepsNum; i++)
             {
@@ -40,17 +45,16 @@ namespace NaturalSelectionLogic
                 a.Pos = new Vector2D(x, y);
                 animals.Add(a);               
                 a.GaveBirth += (sender, e) => BirthHandler(sender, e);                
-                a.Died += (sender, e) => DeathHandler(sender, e);
-                
+                a.Died += (sender, e) => DeathHandler(sender, e);                
             }
         }
         public void Update()
         {
+            Dictionary<string, int> animalsNumber = new Dictionary<string, int>();
             animalsToDel.Clear();
-            animalsToBorn.Clear();
+            animalsToBorn.Clear();            
             foreach (var animal in animals)
-            {
-                 
+            {                 
                 Vector2D dir = new Vector2D((float)(2 * rnd.NextDouble() - 1), (float)(2 * rnd.NextDouble() - 1));
                 var a = (Animal)animal;               
 
@@ -101,7 +105,17 @@ namespace NaturalSelectionLogic
             {
                 animals.Add(ba);
             }
-            CycleUpdated(this, new GameCycleEventArgs(animals, FieldSize));
+            foreach (var a in animals)
+            {
+                if (a is Sheep)
+                {
+                    if (animalsNumber.ContainsKey("Овцы"))
+                        animalsNumber["Овцы"] += 1;
+                    else
+                        animalsNumber.Add("Овцы", 1);
+                }
+            }
+            CycleUpdated(this, new GameCycleEventArgs(animals, FieldSize, animalsNumber));
         }
         private void BirthHandler(object sender, AnimalBornedArgs e)
         {
