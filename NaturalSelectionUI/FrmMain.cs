@@ -11,7 +11,7 @@ namespace NaturalSelectionUI
 {
     public partial class FrmMain : Form, IGameCycleView
     {
-        private int _scale = 1;
+        private float _scale = 1;
         private int _scaleChangeCooldown = 0;
 
         private (float X, float Y) _fieldSize;
@@ -116,8 +116,7 @@ namespace NaturalSelectionUI
             catch
             {
 
-            }
-            
+            }            
         }
         public void DrawUnit (Graphics g, Image sprite, SolidBrush b, Pen p, float X, float Y, float sizeX, float sizeY)
         {
@@ -155,12 +154,12 @@ namespace NaturalSelectionUI
                 //_scaleChangeCooldown = 1;
                 if (e.Delta > 0 && _scale < 10)
                 {
-                    _scale++;
+                    _scale += 0.1f;
                     PbxField.Refresh();
                 }
                 else if (e.Delta < 0 && _scale > 1)
                 {
-                    _scale--;
+                    _scale-=0.1f;
                     PbxField.Refresh();
                 }
             //}
