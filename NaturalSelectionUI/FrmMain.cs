@@ -29,7 +29,6 @@ namespace NaturalSelectionUI
         {
             PbxField.Paint += PaintField;
             CycleInitialized.Invoke(this, new InitializedCycleEventArgs() { FieldSize = (500, 400), SheepsNum = 50 });
-
             PbxField.Refresh();
         }
         private void PaintField(object sender, PaintEventArgs e)

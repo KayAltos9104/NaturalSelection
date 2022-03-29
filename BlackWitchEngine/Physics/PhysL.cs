@@ -15,7 +15,7 @@ namespace BlackWitchEngine.PhysL
             if (Vector2D.CalculateDistance(o1.CircleCollider.Center, o2.CircleCollider.Center) < 2 * o1.CircleCollider.Radius)
             {
                 var bounce = Vector2D.Reverse(dir);
-                int tries = 100;
+                int tries = 10;
                 collided = CircleCollider2D.IsIntersected(o1.CircleCollider, o2.CircleCollider);
                 while (CircleCollider2D.IsIntersected(o1.CircleCollider, o2.CircleCollider) && tries > 0)
                 {
