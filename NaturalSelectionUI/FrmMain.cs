@@ -84,7 +84,6 @@ namespace NaturalSelectionUI
             if (shift.Y < 0)
                 shift.Y = 0;
 
-
             //Инициализация пустого белого поля
             g.FillRectangle(b, e.ClipRectangle);
             b.Color = Color.LightGreen;
@@ -105,17 +104,16 @@ namespace NaturalSelectionUI
                 {
                     b.Color = Color.Red;
                     sprite = wolf;
-                }
-                   
-
-                g.FillEllipse(b, (a.Pos.X - a.CircleCollider.Radius) * _scale + shift.X, (a.Pos.Y - a.CircleCollider.Radius) * _scale + shift.Y,
+                }   
+                DrawUnit(g, sprite, b, p, (a.Pos.X - a.CircleCollider.Radius) * _scale + shift.X, (a.Pos.Y - a.CircleCollider.Radius) * _scale + shift.Y,
                     2 * a.CircleCollider.Radius * _scale, 2 * a.CircleCollider.Radius * _scale);
-                g.DrawEllipse(p, (a.Pos.X - a.CircleCollider.Radius) * _scale + shift.X, (a.Pos.Y - a.CircleCollider.Radius) * _scale + shift.Y,
-                    2 * a.CircleCollider.Radius * _scale, 2 * a.CircleCollider.Radius * _scale);
-                g.DrawImage(sprite, (a.Pos.X - a.CircleCollider.Radius) * _scale + shift.X, (a.Pos.Y - a.CircleCollider.Radius) * _scale + shift.Y,
-                    2 * a.CircleCollider.Radius * _scale, 2 * a.CircleCollider.Radius * _scale);
-
             }
+        }
+        public void DrawUnit (Graphics g, Image sprite, SolidBrush b, Pen p, float X, float Y, float sizeX, float sizeY)
+        {
+            g.FillEllipse(b, X, Y, sizeX, sizeY);
+            g.DrawEllipse(p, X, Y, sizeX, sizeY);
+            g.DrawImage(sprite, X, Y, sizeX, sizeY);
         }
         public new void Show()
         {

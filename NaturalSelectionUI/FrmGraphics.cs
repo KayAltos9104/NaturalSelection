@@ -74,7 +74,7 @@ namespace NaturalSelectionUI
                 
                 for (int i = zeroPoint+1; i< plot.Value.Count; i++)
                 {                   
-                    g.FillEllipse(b, ForPoint(i-zeroPoint, plot.Value[i]));                    
+                    //g.FillEllipse(b, ForPoint(i-zeroPoint, plot.Value[i]));                    
                     if (i > 0)
                     {
                         var sP1 = ShiftPoint(i - 1-zeroPoint, prevPoint);
