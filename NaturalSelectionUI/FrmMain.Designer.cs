@@ -29,21 +29,21 @@ namespace NaturalSelectionUI
         /// </summary>
         private void InitializeComponent()
         {
-            this.BtnTest = new System.Windows.Forms.Button();
+            this.BtnNewGame = new System.Windows.Forms.Button();
             this.PbxField = new System.Windows.Forms.PictureBox();
             this.BtnLaunchCycle = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.PbxField)).BeginInit();
             this.SuspendLayout();
             // 
-            // BtnTest
+            // BtnNewGame
             // 
-            this.BtnTest.Location = new System.Drawing.Point(12, 12);
-            this.BtnTest.Name = "BtnTest";
-            this.BtnTest.Size = new System.Drawing.Size(128, 55);
-            this.BtnTest.TabIndex = 0;
-            this.BtnTest.Text = "Test";
-            this.BtnTest.UseVisualStyleBackColor = true;
-            this.BtnTest.Click += new System.EventHandler(this.BtnTest_Click);
+            this.BtnNewGame.Location = new System.Drawing.Point(12, 12);
+            this.BtnNewGame.Name = "BtnNewGame";
+            this.BtnNewGame.Size = new System.Drawing.Size(128, 55);
+            this.BtnNewGame.TabIndex = 0;
+            this.BtnNewGame.Text = "Новая игра";
+            this.BtnNewGame.UseVisualStyleBackColor = true;
+            this.BtnNewGame.Click += new System.EventHandler(this.BtnTest_Click);
             // 
             // PbxField
             // 
@@ -64,9 +64,9 @@ namespace NaturalSelectionUI
             this.BtnLaunchCycle.Name = "BtnLaunchCycle";
             this.BtnLaunchCycle.Size = new System.Drawing.Size(128, 55);
             this.BtnLaunchCycle.TabIndex = 2;
-            this.BtnLaunchCycle.Text = "Один цикл";
+            this.BtnLaunchCycle.Text = "Запустить серию циклов";
             this.BtnLaunchCycle.UseVisualStyleBackColor = true;
-            this.BtnLaunchCycle.Click += new System.EventHandler(this.BtnLaunchCycle_ClickAsync);
+            this.BtnLaunchCycle.Click += new System.EventHandler(this.BtnLaunchCycle_Click);
             // 
             // FrmMain
             // 
@@ -75,7 +75,7 @@ namespace NaturalSelectionUI
             this.ClientSize = new System.Drawing.Size(790, 498);
             this.Controls.Add(this.BtnLaunchCycle);
             this.Controls.Add(this.PbxField);
-            this.Controls.Add(this.BtnTest);
+            this.Controls.Add(this.BtnNewGame);
             this.Name = "FrmMain";
             this.Text = "Natural Selection 0.01 alpha";
             ((System.ComponentModel.ISupportInitialize)(this.PbxField)).EndInit();
@@ -85,7 +85,7 @@ namespace NaturalSelectionUI
 
         #endregion
 
-        private System.Windows.Forms.Button BtnTest;
+        private System.Windows.Forms.Button BtnNewGame;
         private System.Windows.Forms.PictureBox PbxField;
         private System.Windows.Forms.Button BtnLaunchCycle;
     }

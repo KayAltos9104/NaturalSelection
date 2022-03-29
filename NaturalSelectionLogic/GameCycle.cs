@@ -22,7 +22,7 @@ namespace NaturalSelectionLogic
         public List<IObject> animals = new List<IObject>();
         public List<IObject> animalsToDel = new List<IObject>();
         public List<IObject> animalsToBorn = new List<IObject>();
-        (float X, float Y) FieldSize {get; set;}
+        public (float X, float Y) FieldSize {get; set;}
         public event EventHandler<GameCycleEventArgs> CycleUpdated = delegate { };
         public void Initizalize((float X, float Y) FieldSize, int SheepsNum)
         {

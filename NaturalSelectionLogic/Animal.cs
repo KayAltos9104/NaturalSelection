@@ -14,7 +14,7 @@ namespace NaturalSelectionLogic
         public float Health { get; protected set; }
         public float Attack { get; protected set; }
         public bool IsLive { get; protected set; }
-        //public CircleCollider2D CircleCollider { get; set; }
+        
 
         //public float Armor { get; protected set; }
         //public float ChildrenCount { get; protected set; }

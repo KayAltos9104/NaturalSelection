@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace BlackWitchEngine
 {
@@ -16,6 +14,8 @@ namespace BlackWitchEngine
         event EventHandler<InitializedCycleEventArgs> CycleInitialized;
         event EventHandler CycleLaunched;
         public void Show();
-        public void RenderObjects(List<IObject> objects, (float X, float Y) FieldSize);
+        void ShowError(string errorMessage);        
+        
+        void RenderObjects(List<IObject> objects, (float X, float Y) FieldSize);
     }
 }

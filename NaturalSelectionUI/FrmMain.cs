@@ -6,7 +6,7 @@ using System.Windows.Forms;
 using System.Drawing;
 using System.Collections.Generic;
 using System.Threading;
-using System.Threading.Tasks;
+
 
 namespace NaturalSelectionUI
 {
@@ -21,9 +21,20 @@ namespace NaturalSelectionUI
         public event EventHandler<InitializedCycleEventArgs> CycleInitialized = delegate { };
         public event EventHandler CycleLaunched = delegate { };
 
+        //public delegate void Render(List<IObject> objects, (float X, float Y) FieldSize);
+        public delegate void UpdateControls(List<IObject> objects, (float X, float Y) FieldSize);
+        public UpdateControls UpdatePictureBox;
+
         public FrmMain()
         {
             InitializeComponent();
+            //UpdatePictureBox = RenderObjects;
+            UpdatePictureBox = (objects, FieldSize) =>
+            {
+                animals = objects;
+                _fieldSize = FieldSize;
+                PbxField.Refresh();
+            };
         }
         private void BtnTest_Click(object sender, EventArgs e)
         {
@@ -64,26 +75,27 @@ namespace NaturalSelectionUI
         {
             Application.Run(this);
         }
-        private async void BtnLaunchCycle_ClickAsync(object sender, EventArgs e)
+        private void BtnLaunchCycle_Click(object sender, EventArgs e)
         {
             //await Task.Run(()=>
             //{
-            int i = 100;
-            while (i > 0)
-            {
-                CycleLaunched.Invoke(this, new EventArgs());
-                Thread.Sleep(100);
-                GC.Collect();
-                GC.WaitForPendingFinalizers();
-                i--;
-            }
+            CycleLaunched.Invoke(this, new EventArgs());
+            
             //});
         }
-        public void RenderObjects(List<IObject> objects, (float X, float Y) FieldSize)
+        //public void RenderObjects(List<IObject> objects, (float X, float Y) FieldSize)
+        //{
+        //    animals = objects;
+        //    _fieldSize = FieldSize;
+        //    PbxField.Refresh();
+        //}
+        public void RenderObjects (List<IObject> objects, (float X, float Y) FieldSize)
         {
-            animals = objects;
-            _fieldSize = FieldSize;
-            PbxField.Refresh();
+            this.Invoke(UpdatePictureBox, objects, FieldSize);
+        }
+        public void ShowError(string errorMessage)
+        {
+            MessageBox.Show(errorMessage, "Ошибка!");
         }
     }
 }
