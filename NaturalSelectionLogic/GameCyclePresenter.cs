@@ -26,7 +26,7 @@ namespace NaturalSelectionLogic
         }
         public void ModelInitializeCycle(object sender, InitializedCycleEventArgs e)
         {
-            _gameCycleModel.Initizalize(e.FieldSize, e.SheepsNum);
+            _gameCycleModel.Initizalize(e.FieldSize, e.SheepsNum, e.WolfsNum);
         }
         public async void ModelLaunchCycleAsync(object sender, EventArgs e)
         {

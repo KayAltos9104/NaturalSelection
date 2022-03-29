@@ -7,7 +7,8 @@ namespace BlackWitchEngine
     public class InitializedCycleEventArgs
     {
         public (float X, float Y) FieldSize { get; set;}
-        public int SheepsNum { get; set;}         
+        public int SheepsNum { get; set;}
+        public int WolfsNum { get; set; }
     }
     public interface IGameCycleView
     {        

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Linq;
 
 
 namespace NaturalSelectionUI
@@ -39,8 +40,11 @@ namespace NaturalSelectionUI
             {
                 LbxStatistics.Items.Clear();
                 string s = "Кол-во животных: \n";
-                LbxStatistics.Items.Add(s);
-                foreach (var a in animalsNumber)
+                LbxStatistics.Items.Add(s);               
+
+                var sortedAnimalsNumber = from a in animalsNumber orderby a.Key select a;
+
+                foreach (var a in sortedAnimalsNumber)
                 {
                     s = string.Format("{0} : {1}", a.Key, a.Value);
                     LbxStatistics.Items.Add(s);
@@ -63,7 +67,7 @@ namespace NaturalSelectionUI
         private void BtnInitialize_Click(object sender, EventArgs e)
         {
             PbxField.Paint += PaintField;
-            CycleInitialized.Invoke(this, new InitializedCycleEventArgs() { FieldSize = (500, 300), SheepsNum = 20 });
+            CycleInitialized.Invoke(this, new InitializedCycleEventArgs() { FieldSize = (500, 300), SheepsNum = 20, WolfsNum = 20 });
             statisticsGraphs.Show();
             statPoints.Clear();
             PbxField.Refresh();
@@ -88,7 +92,11 @@ namespace NaturalSelectionUI
             foreach (var o in animals)
             {
                 Animal a = (Animal)o;
-                b.Color = Color.Blue;
+                if (a is Sheep)
+                    b.Color = Color.Blue;
+                else if (a is Wolf)
+                    b.Color = Color.Red;
+
                 g.FillEllipse(b, (a.Pos.X - a.CircleCollider.Radius) * _scale + shift.X, (a.Pos.Y - a.CircleCollider.Radius) * _scale + shift.Y,
                     2 * a.CircleCollider.Radius * _scale, 2 * a.CircleCollider.Radius * _scale);
                 g.DrawEllipse(p, (a.Pos.X - a.CircleCollider.Radius) * _scale + shift.X, (a.Pos.Y - a.CircleCollider.Radius) * _scale + shift.Y,

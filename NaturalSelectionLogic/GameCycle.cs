@@ -26,7 +26,7 @@ namespace NaturalSelectionLogic
         public List<IObject> animalsToBorn = new List<IObject>();
         public (float X, float Y) FieldSize {get; set;}
         public event EventHandler<GameCycleEventArgs> CycleUpdated = delegate { };
-        public void Initizalize((float X, float Y) FieldSize, int SheepsNum)
+        public void Initizalize((float X, float Y) FieldSize, int SheepsNum, int WolfsNum)
         {
             animals.Clear();
             animalsToDel.Clear();
@@ -46,6 +46,21 @@ namespace NaturalSelectionLogic
                 animals.Add(a);               
                 a.GaveBirth += (sender, e) => BirthHandler(sender, e);                
                 a.Died += (sender, e) => DeathHandler(sender, e);                
+            }
+            for (int i = 1; i <= WolfsNum; i++)
+            {
+                Animal a = new Wolf(new Vector2D(0, 0));
+                float x;
+                float y;
+                do
+                {
+                    x = GenRandom(a.CircleCollider.Radius, FieldSize.X - a.CircleCollider.Radius);
+                    y = GenRandom(a.CircleCollider.Radius, FieldSize.Y - a.CircleCollider.Radius);
+                } while (x < 0 || y < 0 || x > FieldSize.X || y > FieldSize.Y);
+                a.Pos = new Vector2D(x, y);
+                animals.Add(a);
+                a.GaveBirth += (sender, e) => BirthHandler(sender, e);
+                a.Died += (sender, e) => DeathHandler(sender, e);
             }
         }
         public void Update()
@@ -113,6 +128,14 @@ namespace NaturalSelectionLogic
                         animalsNumber["Овцы"] += 1;
                     else
                         animalsNumber.Add("Овцы", 1);
+                }
+                else if (a is Wolf)
+                {
+                    if (animalsNumber.ContainsKey("Волки"))
+                        animalsNumber["Волки"] += 1;
+                    else
+                        animalsNumber.Add("Волки", 1);
+
                 }
             }
             CycleUpdated(this, new GameCycleEventArgs(animals, FieldSize, animalsNumber));

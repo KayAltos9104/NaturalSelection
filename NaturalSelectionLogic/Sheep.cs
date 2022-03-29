@@ -3,10 +3,9 @@ using System;
 
 namespace NaturalSelectionLogic
 {
-    class Sheep : Animal
+    public class Sheep : Animal
     {
-        public override event EventHandler<AnimalBornedArgs> GaveBirth = delegate { };
-        //public override event EventHandler Died = delegate { };
+        public override event EventHandler<AnimalBornedArgs> GaveBirth = delegate { };        
         public Sheep (Vector2D pos):base(pos)
         {
 
@@ -16,11 +15,7 @@ namespace NaturalSelectionLogic
 
         }
         public override void Update()
-        {
-            //if (rnd.Next(0,101)>80)
-            //{
-            //    Born();
-            //}    
+        {            
             base.Update();
         }
         public override void Born()
