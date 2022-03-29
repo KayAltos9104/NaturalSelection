@@ -9,6 +9,7 @@ namespace NaturalSelectionLogic
     {
         private GameCycle _gameCycleModel = null;
         private IGameCycleView _gameCycleView = null;
+        private bool _cycleActive = false;
         public GameCyclePresenter(GameCycle model, IGameCycleView view)
         {
             _gameCycleModel = model;
@@ -18,9 +19,8 @@ namespace NaturalSelectionLogic
             _gameCycleView.CycleInitialized += ModelInitializeCycle;
             _gameCycleView.CycleLaunched += ModelLaunchCycleAsync;
         }
-        public void ViewUpdateCycle (object sender, GameCycleEventArgs e)
+        public void ViewUpdateCycle(object sender, GameCycleEventArgs e)
         {
-            //_gameCycleView.RenderObjects(e.Animals, e.FieldSize);
             _gameCycleView.RenderObjects(e.Animals, e.FieldSize);
         }
         public void ModelInitializeCycle(object sender, InitializedCycleEventArgs e)
@@ -31,21 +31,27 @@ namespace NaturalSelectionLogic
         {
             if (_gameCycleModel.FieldSize.X != 0)
             {
-                int i = 100;
-                await Task.Run(()=>
+                SwitchCycleActive();
+                await Task.Run(() =>
                 {
-                    while (i > 0)
+                    while (_cycleActive)
                     {
                         _gameCycleModel.Update();
                         Thread.Sleep(100);
                         GC.Collect();
                         GC.WaitForPendingFinalizers();
-                        i--;
                     }
-                });                
-            }                
+                });
+            }
             else
                 _gameCycleView.ShowError("Поле не сгенериновано!");
+        }
+        private void SwitchCycleActive()
+        {
+            if (_cycleActive)
+                _cycleActive = false;
+            else
+                _cycleActive = true;
         }
         public void ViewRun()
         {
