@@ -136,8 +136,8 @@ namespace NaturalSelectionUI
         public void RenderObjects(List<IObject> objects, (float X, float Y) FieldSize)
         {
             this.Invoke(UpdatePictureBox, objects, FieldSize);
-            if (_scaleChangeCooldown > 0)
-                _scaleChangeCooldown--;
+            //if (_scaleChangeCooldown > 0)
+            //    _scaleChangeCooldown--;
         }
         public void ShowStatistics(Dictionary<string, int> AnimalsNumber)
         {
@@ -150,9 +150,9 @@ namespace NaturalSelectionUI
         //TODO: Почему-то, при прокрутке колеса он иногда вылетает с изменением списка animals O_O
         public void BtnWheel (object sender, MouseEventArgs e)
         {            
-            if (_scaleChangeCooldown==0)
-            {
-                _scaleChangeCooldown = 1;
+            //if (_scaleChangeCooldown==0)
+            //{
+                //_scaleChangeCooldown = 1;
                 if (e.Delta > 0 && _scale < 10)
                 {
                     _scale++;
@@ -163,7 +163,7 @@ namespace NaturalSelectionUI
                     _scale--;
                     PbxField.Refresh();
                 }
-            }
+            //}
             
         }
 

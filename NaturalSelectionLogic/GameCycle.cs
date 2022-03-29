@@ -34,33 +34,11 @@ namespace NaturalSelectionLogic
             this.FieldSize = FieldSize;
             for (int i = 1; i <= SheepsNum; i++)
             {
-                Animal a = new Sheep(new Vector2D(0, 0));
-                float x;
-                float y;
-                do
-                {
-                    x = GenRandom(a.CircleCollider.Radius, FieldSize.X - a.CircleCollider.Radius);
-                    y = GenRandom(a.CircleCollider.Radius, FieldSize.Y - a.CircleCollider.Radius);
-                } while (x < 0 || y < 0 || x > FieldSize.X || y > FieldSize.Y);
-                a.Pos = new Vector2D(x, y);
-                animals.Add(a);               
-                a.GaveBirth += (sender, e) => BirthHandler(sender, e);                
-                a.Died += (sender, e) => DeathHandler(sender, e);                
+                AnimalFabric("овца");                                
             }
             for (int i = 1; i <= WolfsNum; i++)
             {
-                Animal a = new Wolf(new Vector2D(0, 0));
-                float x;
-                float y;
-                do
-                {
-                    x = GenRandom(a.CircleCollider.Radius, FieldSize.X - a.CircleCollider.Radius);
-                    y = GenRandom(a.CircleCollider.Radius, FieldSize.Y - a.CircleCollider.Radius);
-                } while (x < 0 || y < 0 || x > FieldSize.X || y > FieldSize.Y);
-                a.Pos = new Vector2D(x, y);
-                animals.Add(a);
-                a.GaveBirth += (sender, e) => BirthHandler(sender, e);
-                a.Died += (sender, e) => DeathHandler(sender, e);
+                AnimalFabric("волк");               
             }
         }
         public void Update()
@@ -172,6 +150,36 @@ namespace NaturalSelectionLogic
         private float GenRandom(float left, float right)
         {
             return (float)(rnd.NextDouble() * (right - left)+left);
+        }
+
+        private void AnimalFabric(string type)
+        {
+            Animal a = null;
+            if (type.ToLower() == "овца")
+            {
+                a = new Sheep(new Vector2D(0, 0));
+            }
+            else if (type.ToLower() == "волк")
+            {
+                a = new Wolf(new Vector2D(0, 0));
+            }
+            else
+            {
+                return;
+            }
+            float x;
+            float y;
+            do
+            {
+                x = GenRandom(a.CircleCollider.Radius, FieldSize.X - a.CircleCollider.Radius);
+                y = GenRandom(a.CircleCollider.Radius, FieldSize.Y - a.CircleCollider.Radius);
+            } while (x < 0 || y < 0 || x > FieldSize.X || y > FieldSize.Y);
+            a.Pos = new Vector2D(x, y);
+            animals.Add(a);
+            a.GaveBirth += (sender, e) => BirthHandler(sender, e);
+            a.Died += (sender, e) => DeathHandler(sender, e);
+            //return a;
+
         }
     }
 }
