@@ -44,7 +44,7 @@ namespace NaturalSelectionUI
             this.BtnNewGame.TabIndex = 0;
             this.BtnNewGame.Text = "Новая игра";
             this.BtnNewGame.UseVisualStyleBackColor = true;
-            this.BtnNewGame.Click += new System.EventHandler(this.BtnTest_Click);
+            this.BtnNewGame.Click += new System.EventHandler(this.BtnInitialize_Click);
             // 
             // PbxField
             // 

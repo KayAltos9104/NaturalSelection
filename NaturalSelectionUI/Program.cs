@@ -1,6 +1,5 @@
-using System;
-using BlackWitchEngine;
 using NaturalSelectionLogic;
+using System;
 using System.Windows.Forms;
 
 namespace NaturalSelectionUI

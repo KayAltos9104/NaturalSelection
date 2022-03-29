@@ -1,11 +1,9 @@
-﻿using System;
-using BlackWitchEngine;
+﻿using BlackWitchEngine;
 using NaturalSelectionLogic;
-
-using System.Windows.Forms;
-using System.Drawing;
+using System;
 using System.Collections.Generic;
-using System.Threading;
+using System.Drawing;
+using System.Windows.Forms;
 
 
 namespace NaturalSelectionUI
@@ -15,8 +13,9 @@ namespace NaturalSelectionUI
         private int _scale = 3;
         private (float X, float Y) _fieldSize;
         Image lamb = Image.FromFile("lamb3.png");
-
+        FrmGraphics statisticsGraphs;
         List<IObject> animals = new List<IObject>();
+        Dictionary<string, List<int>> statPoints = new Dictionary<string, List<int>>();
 
         public event EventHandler<InitializedCycleEventArgs> CycleInitialized = delegate { };
         public event EventHandler CycleLaunched = delegate { };
@@ -29,7 +28,7 @@ namespace NaturalSelectionUI
 
         public FrmMain()
         {
-            InitializeComponent();           
+            InitializeComponent();
             UpdatePictureBox = (objects, FieldSize) =>
             {
                 animals = objects;
@@ -43,16 +42,30 @@ namespace NaturalSelectionUI
                 LbxStatistics.Items.Add(s);
                 foreach (var a in animalsNumber)
                 {
-                    s = String.Format("{0} : {1}", a.Key, a.Value);
+                    s = string.Format("{0} : {1}", a.Key, a.Value);
                     LbxStatistics.Items.Add(s);
-                }               
+                    if (statPoints.ContainsKey(a.Key))
+                    {
+                        statPoints[a.Key].Add(a.Value);
+                    }
+                    else
+                    {
+                        statPoints.Add(a.Key, new List<int>());
+                        statPoints[a.Key].Add(a.Value);
+                    }
+                }
                 LbxStatistics.Refresh();
+                statisticsGraphs.UpdateGraph(statPoints);
+                statisticsGraphs.Refresh();
             };
+            statisticsGraphs = new FrmGraphics();
         }
-        private void BtnTest_Click(object sender, EventArgs e)
+        private void BtnInitialize_Click(object sender, EventArgs e)
         {
             PbxField.Paint += PaintField;
             CycleInitialized.Invoke(this, new InitializedCycleEventArgs() { FieldSize = (500, 300), SheepsNum = 20 });
+            statisticsGraphs.Show();
+            statPoints.Clear();
             PbxField.Refresh();
         }
         private void PaintField(object sender, PaintEventArgs e)
@@ -89,22 +102,21 @@ namespace NaturalSelectionUI
             Application.Run(this);
         }
         private void BtnLaunchCycle_Click(object sender, EventArgs e)
-        {            
-            CycleLaunched.Invoke(this, new EventArgs());  
+        {
+            CycleLaunched.Invoke(this, new EventArgs());
         }
-       
-        public void RenderObjects (List<IObject> objects, (float X, float Y) FieldSize)
+        public void RenderObjects(List<IObject> objects, (float X, float Y) FieldSize)
         {
             this.Invoke(UpdatePictureBox, objects, FieldSize);
         }
         public void ShowStatistics(Dictionary<string, int> AnimalsNumber)
         {
-            this.Invoke(UpdateStatistics, AnimalsNumber);           
+            this.Invoke(UpdateStatistics, AnimalsNumber);
         }
         public void ShowError(string errorMessage)
         {
             MessageBox.Show(errorMessage, "Ошибка!");
         }
-        
+
     }
 }
