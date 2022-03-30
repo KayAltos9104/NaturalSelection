@@ -93,13 +93,14 @@ namespace NaturalSelectionLogic
                                     {
                                         a.Born();
                                     }
-                                    a.BirthCooldown = 10;
-                                    n.BirthCooldown = 10;
+                                    //a.BirthCooldown = 10;
+                                    //n.BirthCooldown = 10;
                                 }                                
                             }
                             else if (a is Wolf && a.GetType()!=n.GetType())
                             {
                                 animalsToDel.Add(n);
+                                a.Hunger -= n.Health;
                             }
                         }                       
                     }

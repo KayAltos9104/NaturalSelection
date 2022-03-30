@@ -73,7 +73,7 @@ namespace NaturalSelectionUI
         private void BtnInitialize_Click(object sender, EventArgs e)
         {
             PbxField.Paint += PaintField;
-            CycleInitialized.Invoke(this, new InitializedCycleEventArgs() { FieldSize = (1000, 1000), SheepsNum = 100, WolfsNum = 100 });
+            CycleInitialized.Invoke(this, new InitializedCycleEventArgs() { FieldSize = (500, 500), SheepsNum = 200, WolfsNum = 50 });
             statisticsGraphs.Show();
             statPoints.Clear();
             PbxField.Refresh();

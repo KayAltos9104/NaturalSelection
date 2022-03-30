@@ -20,7 +20,22 @@ namespace NaturalSelectionLogic
         //public float ChildrenCount { get; protected set; }
         public byte CurrentAge { get; protected set; }
         public byte LiveAge { get; protected set; }
-        //public float Hunger { get; protected set; }
+        private float _hunger;
+        public float Hunger { 
+            get
+            {
+                return _hunger;
+            }
+            set
+            {
+                if (value > 100)
+                    _hunger = 100;
+                else if (value < 0)
+                    _hunger = 0;
+                else
+                    _hunger = value;
+            }
+        }
         public event EventHandler Died = delegate { };
         public abstract event EventHandler<AnimalBornedArgs> GaveBirth;
         public byte BirthCooldown { get; set; }
@@ -37,15 +52,17 @@ namespace NaturalSelectionLogic
             LiveAge = 200;
             CurrentAge = 1;
             CircleCollider = new CircleCollider2D(Pos, size);
+            Hunger = 0;
             IsLive = true;
         }
         public override void Update()
         {            
-            if (CurrentAge >= LiveAge)
+            if (CurrentAge >= LiveAge||Hunger==100)
             {
                 Died.Invoke(this, new EventArgs());
                 IsLive = false;
-            }
+            }           
+
             if (BirthCooldown > 0)
                 BirthCooldown--;
             CurrentAge++;
