@@ -53,12 +53,15 @@ namespace NaturalSelectionUI
             | System.Windows.Forms.AnchorStyles.Right)));
             this.PbxField.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.PbxField.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.PbxField.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.PbxField.Location = new System.Drawing.Point(202, 5);
             this.PbxField.Name = "PbxField";
             this.PbxField.Size = new System.Drawing.Size(751, 629);
             this.PbxField.TabIndex = 1;
             this.PbxField.TabStop = false;
-            this.PbxField.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.BtnWheel);
+            this.PbxField.MouseDown += new System.Windows.Forms.MouseEventHandler(this.PbxFieldClick);
+            this.PbxField.MouseUp += new System.Windows.Forms.MouseEventHandler(this.PbxFieldMouseUp);
+            this.PbxField.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.PbxFieldWheel);
             // 
             // BtnLaunchCycle
             // 

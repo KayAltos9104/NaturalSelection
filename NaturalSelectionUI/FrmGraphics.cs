@@ -82,7 +82,7 @@ namespace NaturalSelectionUI
                         g.DrawLine(p, sP1.xS, sP1.yS, sP2.xS, sP2.yS);
                     }
                     if (plot.Value[i] > axisYLength)
-                        axisYLength = plot.Value[i] + 10;
+                        axisYLength = plot.Value[i] + 1;
                     prevPoint = plot.Value[i];                   
                 }
             }            

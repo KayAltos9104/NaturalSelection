@@ -12,14 +12,17 @@ namespace NaturalSelectionUI
     public partial class FrmMain : Form, IGameCycleView
     {
         private float _scale = 1;
-        private int _scaleChangeCooldown = 0;
+        //private (int X, int Y) _renderShift = (0,0);
+        private (int X, int Y) shift = (0, 0);
+        private bool _scrollActive = false;
+        private (bool xRight, bool yRight) _scrollDirection = (true,true);
 
         private (float X, float Y) _fieldSize;
-        Image lamb = Image.FromFile("lamb3.png");
-        Image wolf = Image.FromFile("wolf.png");
-        FrmGraphics statisticsGraphs;
-        List<IObject> animals = new List<IObject>();
-        Dictionary<string, List<int>> statPoints = new Dictionary<string, List<int>>();
+        private Image lamb = Image.FromFile("lamb3.png");
+        private Image wolf = Image.FromFile("wolf.png");
+        private FrmGraphics statisticsGraphs;
+        private List<IObject> animals = new List<IObject>();
+        private Dictionary<string, List<int>> statPoints = new Dictionary<string, List<int>>();
 
         public event EventHandler<InitializedCycleEventArgs> CycleInitialized = delegate { };
         public event EventHandler CycleLaunched = delegate { };
@@ -70,7 +73,7 @@ namespace NaturalSelectionUI
         private void BtnInitialize_Click(object sender, EventArgs e)
         {
             PbxField.Paint += PaintField;
-            CycleInitialized.Invoke(this, new InitializedCycleEventArgs() { FieldSize = (500, 300), SheepsNum = 40, WolfsNum = 20 });
+            CycleInitialized.Invoke(this, new InitializedCycleEventArgs() { FieldSize = (1000, 1000), SheepsNum = 100, WolfsNum = 100 });
             statisticsGraphs.Show();
             statPoints.Clear();
             PbxField.Refresh();
@@ -80,12 +83,18 @@ namespace NaturalSelectionUI
             Graphics g = e.Graphics;
             SolidBrush b = new SolidBrush(Color.White);
             Pen p = new Pen(Color.Black, 1.0f);
-            (int X, int Y) shift = ((int)(e.ClipRectangle.Width - _fieldSize.X * _scale) / 2, (int)(e.ClipRectangle.Height - _fieldSize.Y * _scale) / 2);
-            if (shift.X < 0)
-                shift.X = 0;
-            if (shift.Y < 0)
-                shift.Y = 0;
+            if (_scrollActive)
+            {
+                if (_scrollDirection.xRight)
+                    shift.X -= 10;
+                else
+                    shift.X += 10;
 
+                if (_scrollDirection.yRight)
+                    shift.Y -= 10;
+                else
+                    shift.Y += 10;
+            }            
             //Инициализация пустого белого поля
             g.FillRectangle(b, e.ClipRectangle);
             b.Color = Color.LightGreen;
@@ -147,24 +156,48 @@ namespace NaturalSelectionUI
             MessageBox.Show(errorMessage, "Ошибка!");
         }
         //TODO: Почему-то, при прокрутке колеса он иногда вылетает с изменением списка animals O_O
-        public void BtnWheel (object sender, MouseEventArgs e)
-        {            
-            //if (_scaleChangeCooldown==0)
-            //{
-                //_scaleChangeCooldown = 1;
+        public void PbxFieldWheel (object sender, MouseEventArgs e)
+        {    
                 if (e.Delta > 0 && _scale < 10)
                 {
                     _scale += 0.1f;
                     PbxField.Refresh();
                 }
-                else if (e.Delta < 0 && _scale > 1)
+                else if (e.Delta < 0 && _scale > 0.1)
                 {
                     _scale-=0.1f;
                     PbxField.Refresh();
                 }
-            //}
-            
         }
+        public void PbxFieldClick (object sender, MouseEventArgs e)
+        {
+            var c = (Control)sender;
+            (int X, int Y) center = (c.Width / 2, c.Height / 2);            
+            if (e.Button == MouseButtons.Right)
+            {
+                c.Cursor = Cursors.SizeAll;
+                if (e.X > center.X)
+                    _scrollDirection.xRight = true;
+                else
+                    _scrollDirection.xRight = false;
 
+                if (e.Y > center.Y)
+                    _scrollDirection.yRight = true;
+                else
+                    _scrollDirection.yRight = false;
+                c.Refresh();
+                _scrollActive = true;
+            }
+            c.Cursor = Cursors.Default;
+        }
+        public void PbxFieldMouseUp(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                _scrollActive = false;                
+            }
+               
+        }
+        
     }
 }
